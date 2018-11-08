@@ -40,14 +40,13 @@ e.g. `fn create app --config twitter_consumerkey=foo --config twitter_consumerse
 
 You should see an output similar to below..
 
-    ```
+
     ...
     Updating function github-release-handler using image github-release-handler:0.0.2...
     Successfully created app:  fn-webhook-app
     Successfully created function: github-release-handler with github-release-handler:0.0.2
     Successfully created trigger: handle-release
     Trigger Endpoint: http://localhost:8080/t/fn-webhook-app/handle-release
-    ```
 
 ## Configure GitHub webhook
 
