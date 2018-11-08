@@ -24,12 +24,12 @@ Feel free to use an existing GitHub repository if you have one. I would recommen
 
 ## Deploy the function
 
-- clone this repo
-- `cd fn-github-webhook-twitter`
 - get latest and greatest **Fn**
     - [Fn CLI](https://github.com/fnproject/cli) - `curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh`
     - Fn server - `fn update server`
 - start Fn server - `fn start`
+- clone this repo
+- `cd fn-github-webhook-twitter`
 - create the app - `fn create app --config twitter_consumerkey=<twitter_consumerkey> --config twitter_consumersecret=<twitter_consumersecret> --config twitter_accesstoken=<twitter_accesstoken> --config twitter_accesstokensecret=<twitter_accesstokensecret> --config github_webhook_secret=<github_webhook_secret> fn-webhook-app` 
 
 e.g. `fn create app --config twitter_consumerkey=foo --config twitter_consumersecret=bar --config twitter_accesstoken=red-me --config twitter_accesstokensecret=s3cr3t --config github_webhook_secret=kehsihba fn-webhook-app`
