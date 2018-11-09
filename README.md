@@ -120,7 +120,7 @@ We'll use [the REST API](https://developer.github.com/v3/repos/releases/#create-
 
 You should see the new release in the UI under `https://github.com/<user>/<repo>/releases` 
 
-![](images/release.JPG)
+![](images/release_.JPG)
 
 ### Check twitter
 
