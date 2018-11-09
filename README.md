@@ -98,7 +98,7 @@ Replace the following parameters as per your setup
 
 Once completed, the new webhook should show up in the UI `Settings > Webhooks` section
 
-![](images/hook4.JPG)
+![](images/hook4.jpg)
 
 ## Test
 
