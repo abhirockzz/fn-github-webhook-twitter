@@ -3,8 +3,11 @@
 This is a [Fn](https://github.com/fnproject/cli) function (written in **Go**) which acts as a GitHub webhook. Once configured and deployed
 
 - it will be invoked in response to a new release in a GitHub repo 
-- and post release details (repo, version and access link) to Twitter
 
+![](images/rel_.JPG)
+
+
+- and post release details (repo, version and access link) to Twitter
 
 ![](images/success_tweet.JPG)
 
@@ -56,21 +59,42 @@ You should see an output similar to below..
 
 ## Configure GitHub webhook
 
-Go to `Settings > Webhooks` section of your repository to get started - details in [Github docs](https://developer.github.com/webhooks/creating/#setting-up-a-webhook) and start by clicking `Add Webhook`
+You can use the UI `Settings > Webhooks` section of your repository to get started - details in [Github docs](https://developer.github.com/)
 
-![](images/hook1.JPG)
+We'll use the [GitHub REST API](https://developer.github.com/v3/repos/hooks/#create-a-hook) for now
 
-- for the Payload URL section, enter the Fn function trigger endpoint e.g. `http://<your_fn_server_IP>:8080/t/fn-webhook-app/handle-release`
-- choose `application/json` as content type
-- enter a `Secret` - use the value which you used for `github_webhook_secret` while creating the function (`fn create...`)
+> I used OAauth token over Basic Authentication via REST API. You can read up on this and more [over here](https://developer.github.com/v3/auth/)
 
-![](images/hook2.JPG)
+Here is en example cURL command with the payload
 
-- for `Events`, check `Let me select individual events` and (scroll down) check `Releases`... ensure `Active` checkbox is checked and click `Add webhook`
 
-![](images/hook3.JPG)
+	curl -X POST -u <github_user_id>:<your_github_token_or_password> \
+	  https://api.github.com/repos/<github_user>/<github_repo>/hooks \
+	  -H 'content-type: application/json' \
+	  -d '{
+	  "name": "web",
+	  "active": true,
+	  "events": [
+	    "release"
+	  ],
+	  "config": {
+	    "url": "<fn_function_endpoint>",
+	    "secret": "<your_github_webhook_secret>",
+	    "content_type": "json",
+	    "insecure_ssl": 1
+	  }
+	}'
 
-- once completed, the new webhook should show up
+Replace the following parameters as per your setup
+
+- `github_user_id` - user ID
+- `your_github_token_or_password` - OAuth token or password
+- `github_user` - user name
+- `github_repo` - repository for which webhook is being configured
+- `your_github_webhook_secret` - use the value which you used for `github_webhook_secret` while creating the function (`fn create...`)
+- `fn_function_endpoint` - enter the Fn function trigger endpoint e.g. `http://<your_fn_server_IP>:8080/t/fn-webhook-app/handle-release`
+
+Once completed, the new webhook should show up in the UI `Settings > Webhooks` section
 
 ![](images/hook4.JPG)
 
@@ -78,18 +102,23 @@ Go to `Settings > Webhooks` section of your repository to get started - details 
 
 ### Create a release
 
-- go to `https://github.com/<user>/<repo>/releases`
-- click `Create a new release`
+We'll use [the REST API](https://developer.github.com/v3/repos/releases/#create-a-release)
 
-![](images/rel_1.JPG)
+	curl -X POST -u <github_user_id>:<your_github_token_or_password> \
+	  https://api.github.com/repos/<github_user>/<github_repo>/releases \
+	  -H 'content-type: application/json' \
+	  -d '{
+	  "tag_name": "v1.0.0",
+	  "target_commitish": "master",
+	  "name": "v1.0.0",
+	  "body": "Description of the release",
+	  "draft": false,
+	  "prerelease": false
+	}'
 
-- fill details
+You should see the new release in the UI under `https://github.com/<user>/<repo>/releases` 
 
-![](images/rel_2.JPG)
-
-- Click `Publish release`
-
-![](images/rel_3.JPG)
+![](images/release.JPG)
 
 ### Check twitter
 
