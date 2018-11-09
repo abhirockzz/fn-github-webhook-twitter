@@ -5,14 +5,17 @@ This is a [Fn](https://github.com/fnproject/cli) function (written in **Go**) wh
 - it will be invoked in response to a new release in a GitHub repo 
 - and post release details (repo, version and access link) to Twitter
 
+
+![](images/success_tweet.JPG)
+
+> the function in this example is configured to respond to GitHub releases, but the same can be extended/applied to other events such as pull requests, commits etc.
+
 ## To start with...
 
 You will need
 
 - [Twitter](https://twitter.com/) account
 - [GitHub](https://github.com/) account
-
-> Make sure you have **Fn** installed on an infra which can be accessed from public internet (e.g. VM), or use [ngrok](https://ngrok.com/) on your local machine to set up a secure tunnel to your localhost i.e. provide access to your local Fn server from the Internet
 
 ### Twitter app setup
 
@@ -27,6 +30,9 @@ Feel free to use an existing GitHub repository if you have one. I would recommen
 - get latest and greatest **Fn**
     - [Fn CLI](https://github.com/fnproject/cli) - `curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh`
     - Fn server - `fn update server`
+
+> Make sure you have **Fn** installed on a machine which can be accessed from public Internet (e.g. a VM), or use [ngrok](https://ngrok.com/) on your local machine to set up a secure tunnel to your `localhost`
+
 - start Fn server - `fn start`
 - clone this repo
 - `cd fn-github-webhook-twitter`
@@ -63,6 +69,10 @@ Go to `Settings > Webhooks` section of your repository to get started - details 
 - for `Events`, check `Let me select individual events` and (scroll down) check `Releases`... ensure `Active` checkbox is checked and click `Add webhook`
 
 ![](images/hook3.JPG)
+
+- once completed, the new webhook should show up
+
+![](images/hook4.JPG)
 
 ## Test
 
