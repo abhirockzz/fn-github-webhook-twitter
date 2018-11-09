@@ -57,6 +57,8 @@ You should see an output similar to below..
     Successfully created trigger: handle-release
     Trigger Endpoint: http://localhost:8080/t/fn-webhook-app/handle-release
 
+> note down the `Trigger Endpoint`
+
 ## Configure GitHub webhook
 
 You can use the UI `Settings > Webhooks` section of your repository to get started - details in [Github docs](https://developer.github.com/)
